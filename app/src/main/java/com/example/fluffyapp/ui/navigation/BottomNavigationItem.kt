@@ -19,13 +19,13 @@ data class BottomNavigationItem(
                 title = "Cats",
                 iconSelected = Icons.Filled.List,
                 iconNotSelected = Icons.Outlined.List,
-                route = Screens.CatListScreen
+                route = Screens.CatBreedListScreen
             ),
             BottomNavigationItem(
                 title = "Favourites",
                 iconSelected = Icons.Filled.Favorite,
                 iconNotSelected = Icons.Outlined.Favorite,
-                route = Screens.CatListScreen
+                route = Screens.CatBreedListScreen
             )
         )
     }

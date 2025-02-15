@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-interface CatApi {
+interface CatBreedApi {
     @GET("breeds")
     suspend fun getCat(
         @Query("limit") limit: Int = 20,

@@ -1,22 +1,22 @@
-package com.example.fluffyapp.ui.cat_list
+package com.example.fluffyapp.ui.cat_breed_list
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fluffyapp.domain.repository.CatRepository
+import com.example.fluffyapp.domain.repository.CatBreedRepository
 import com.example.fluffyapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CatListViewModel @Inject constructor(
-    private val catRepository: CatRepository
+class CatBreedViewModel @Inject constructor(
+    private val repository: CatBreedRepository
 ) : ViewModel() {
 
-    var state by mutableStateOf(CatListScreenState())
+    var state by mutableStateOf(CatBreedScreenState())
 
     init {
         getCatList()
@@ -24,7 +24,7 @@ class CatListViewModel @Inject constructor(
 
     private fun getCatList(){
       viewModelScope.launch {
-          catRepository.getCat().collect { response ->
+          repository.getCat().collect { response ->
               when(response){
                   is Resource.Error -> {
                       state = state.copy(error = response.error)

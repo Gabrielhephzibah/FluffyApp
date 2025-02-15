@@ -1,9 +1,9 @@
 package com.example.fluffyapp.data.repository
 
 import com.example.fluffyapp.data.mapper.toCat
-import com.example.fluffyapp.data.remote.CatApi
-import com.example.fluffyapp.domain.model.Cat
-import com.example.fluffyapp.domain.repository.CatRepository
+import com.example.fluffyapp.data.remote.CatBreedApi
+import com.example.fluffyapp.domain.model.CatBreed
+import com.example.fluffyapp.domain.repository.CatBreedRepository
 import com.example.fluffyapp.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -14,12 +14,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CatRepositoryImpl @Inject constructor(
-    private val catApi: CatApi,
-):CatRepository {
-    override suspend fun getCat(): Flow<Resource<List<Cat>>>  =
-       flow<Resource<List<Cat>>>{
-           val response = catApi.getCat()
+class CatBreedRepositoryImpl @Inject constructor(
+    private val catBreedApi: CatBreedApi,
+):CatBreedRepository {
+    override suspend fun getCat(): Flow<Resource<List<CatBreed>>>  =
+       flow<Resource<List<CatBreed>>>{
+           val response = catBreedApi.getCat()
            emit(Resource.Success(response.map { it.toCat()}))
        }.catch {
               emit(Resource.Error(it))

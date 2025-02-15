@@ -1,7 +1,7 @@
 package com.example.fluffyapp.di
 
 import com.example.fluffyapp.BuildConfig
-import com.example.fluffyapp.data.remote.CatApi
+import com.example.fluffyapp.data.remote.CatBreedApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +40,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideCatApi(retrofit: Retrofit) = retrofit.create(CatApi::class.java)
+    fun provideCatApi(retrofit: Retrofit): CatBreedApi = retrofit.create(CatBreedApi::class.java)
 
 }

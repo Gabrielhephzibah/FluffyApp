@@ -1,4 +1,4 @@
-package com.example.fluffyapp.ui.cat_list
+package com.example.fluffyapp.ui.cat_breed_list
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,7 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
 
 @Composable
-fun CatListScreen(paddingValues: PaddingValues, viewModel: CatListViewModel = hiltViewModel()) {
+fun CatBreedListScreen(paddingValues: PaddingValues, viewModel: CatBreedViewModel = hiltViewModel()) {
     Scaffold(
         modifier = Modifier.padding(paddingValues),
         topBar = {

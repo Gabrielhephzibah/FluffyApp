@@ -1,7 +1,7 @@
 package com.example.fluffyapp.di
 
-import com.example.fluffyapp.data.repository.CatRepositoryImpl
-import com.example.fluffyapp.domain.repository.CatRepository
+import com.example.fluffyapp.data.repository.CatBreedRepositoryImpl
+import com.example.fluffyapp.domain.repository.CatBreedRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +14,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun provideCatRepository(catRepositoryImpl: CatRepositoryImpl): CatRepository
+    abstract fun provideCatRepository(catBreedRepositoryImpl: CatBreedRepositoryImpl): CatBreedRepository
 }

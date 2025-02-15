@@ -1,11 +1,11 @@
 package com.example.fluffyapp.data.mapper
 
 import com.example.fluffyapp.data.remote.dto.CatBreedDto
-import com.example.fluffyapp.domain.model.Cat
+import com.example.fluffyapp.domain.model.CatBreed
 
 
-fun CatBreedDto.toCat(): Cat {
-    return Cat(
+fun CatBreedDto.toCat(): CatBreed {
+    return CatBreed(
         breedName = this.name ?:"",
         url = this.image.url ?: "",
         lifespan = this.lifeSpan ?: "",

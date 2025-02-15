@@ -1,6 +1,6 @@
 package com.example.fluffyapp.domain.model
 
-data class Cat(
+data class CatBreed(
     val breedName: String,
     val url: String,
     val lifespan: String,

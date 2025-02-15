@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 sealed class Screens {
     @Serializable
-    data object CatListScreen : Screens()
+    data object CatBreedListScreen : Screens()
 
     @Serializable
     data object CatFavouriteScreen : Screens()
