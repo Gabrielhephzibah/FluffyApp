@@ -28,7 +28,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://api.thecatapi.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.thecatapi.com/v1/\"")
             buildConfigField("String", "API_KEY", "\"live_kPi2v32cRJfRpSKfBNqWwvfUU1N8K5dE70LqXiYwdPGtCHWNYzFQ8mwzDQ2hvOSG\"")
         }
         release {
