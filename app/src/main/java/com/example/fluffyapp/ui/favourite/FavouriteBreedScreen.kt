@@ -1,6 +1,7 @@
 package com.example.fluffyapp.ui.favourite
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -49,8 +50,8 @@ fun FavouriteBreedScreen(paddingValues: PaddingValues, onItemClick: (String) -> 
                 .fillMaxWidth()
                 .padding(top = 20.dp),
             textAlign = TextAlign.Center,
-            text = "Average LifeSpan : ${data.averageLifeSpan}",
-            color = Color.Magenta,
+            text = "Average LifeSpan: ${data.averageLifeSpan}",
+            color = Color.Black,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
         )
@@ -71,9 +72,11 @@ fun FavouriteBreedScreen(paddingValues: PaddingValues, onItemClick: (String) -> 
                 )
             }
         } else {
-            Spacer(modifier = Modifier.padding(top = 30.dp))
+            Spacer(modifier = Modifier.padding(15.dp))
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(150.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(
                     count = data.favouriteBreed.size,
@@ -110,7 +113,7 @@ fun CatFavouriteItem(item: FavouriteBreed, onItemClick: (String) -> Unit) {
                     .clip(RoundedCornerShape(8.dp)),
                 model = item.url,
                 contentScale = ContentScale.FillBounds,
-                contentDescription = "cat-image",
+                contentDescription = "cat image",
                 clipToBounds = true
             )
             Icon(
@@ -118,7 +121,7 @@ fun CatFavouriteItem(item: FavouriteBreed, onItemClick: (String) -> Unit) {
                     .align(Alignment.TopEnd)
                     .padding(8.dp),
                 imageVector = Icons.Filled.Favorite,
-                contentDescription = "Favourite Item",
+                contentDescription = "favourite item",
                 tint = Color.Magenta
             )
         }
@@ -128,15 +131,5 @@ fun CatFavouriteItem(item: FavouriteBreed, onItemClick: (String) -> Unit) {
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun FavouritePreview() {
-    Surface(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        //FavouriteBreedScreen(PaddingValues(10.dp))
     }
 }

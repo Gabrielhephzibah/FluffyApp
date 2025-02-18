@@ -18,7 +18,9 @@ import com.example.fluffyapp.domain.model.BreedDetail
 import com.example.fluffyapp.domain.model.Breed
 import com.example.fluffyapp.domain.model.FavouriteBreed
 import com.example.fluffyapp.domain.repository.BreedRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -27,59 +29,51 @@ import javax.inject.Singleton
 @Singleton
 class BreedRepositoryImpl @Inject constructor(
     private val breedApi: BreedApi,
-    private val catBreedDb: BreedDatabase,
+    private val breedDb: BreedDatabase,
     private val breedDao: BreedDao,
-    private val favouriteDao: FavouriteBreedDao
-):BreedRepository {
+    private val favouriteDao: FavouriteBreedDao,
+    private val ioDispatcher: CoroutineDispatcher
+) : BreedRepository {
     override fun getBreeds(searchQuery: String?): Flow<PagingData<Breed>> {
-       return Pager(
-           config = PagingConfig(
-               pageSize = 20,
-               prefetchDistance = 5,
-               initialLoadSize = 20,
-           ),
-           remoteMediator = if (searchQuery.isNullOrEmpty()){
-               BreedRemoteMediator(
-                   breedDb = catBreedDb,
-                   breedApi = breedApi
-               )
-           }else null,
-           pagingSourceFactory = {
-              breedDao.getBreeds(searchQuery)
-           }
-       ).flow.map { pagingData -> pagingData.map { it.toCatBreed() } }
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                prefetchDistance = 5,
+                initialLoadSize = 20,
+            ),
+            remoteMediator = if (searchQuery.isNullOrEmpty()) {
+                BreedRemoteMediator(
+                    breedDb = breedDb,
+                    breedApi = breedApi
+                )
+            } else null,
+            pagingSourceFactory = {
+                breedDao.getBreeds(searchQuery)
+            }
+        ).flow.map { pagingData -> pagingData.map { it.toCatBreed() } }.flowOn(ioDispatcher)
 
     }
+
     override suspend fun insertFavouriteBreed(favouriteBreed: FavouriteBreed) {
         favouriteDao.insertFavouriteBreed(favouriteBreed.toFavouriteEntity())
     }
+
     override fun getFavoriteBreedId(): Flow<List<String>> {
-       return favouriteDao.getFavouritesId()
+        return favouriteDao.getFavouritesId()
     }
+
     override suspend fun removeBreedFromFavourite(id: String) {
         favouriteDao.removeBreedFromFavourite(id)
     }
+
     override fun getFavoriteBreeds(): Flow<List<FavouriteBreed>> {
         return favouriteDao.getFavouriteBreeds()
             .map { entity ->
-            entity.map { it.toFavouriteBreed()}
-        }
+                entity.map { it.toFavouriteBreed() }
+            }
     }
+
     override fun getBreedDetail(id: String): Flow<BreedDetail> {
-        return breedDao.findBreedById(id).map {it.toBreedDetail()}
+        return breedDao.findBreedById(id).map { it.toBreedDetail() }
     }
-
-
-
-
-//    override suspend fun getCat(): Flow<Resource<List<CatBreed>>>  =
-//        flow<Resource<List<CatBreed>>>{
-//            val response = breedApi.getBreeds(20, 0)
-//            val body = response.body() ?: emptyList()
-//            emit(Resource.Success(body.map { it.toCat()}))
-//        }.catch {
-//            emit(Resource.Error(it))
-//        }.flowOn(Dispatchers.IO)
-
-
 }

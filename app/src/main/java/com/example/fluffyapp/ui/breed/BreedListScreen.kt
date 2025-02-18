@@ -46,7 +46,7 @@ fun CatBreedListScreen(paddingValues: PaddingValues, onItemClick: (String) -> Un
         if (data.loadState.refresh is LoadState.Error) {
             Toast.makeText(
                 context,
-                "Connection Error",
+                "No internet connection",
                 Toast.LENGTH_LONG
             ).show()
         }

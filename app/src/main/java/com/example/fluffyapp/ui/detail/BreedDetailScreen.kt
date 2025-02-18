@@ -56,10 +56,13 @@ fun BreedDetailScreen(breedId: String, navController: NavController) {
 
     Scaffold(
         topBar = {
-           CenterAlignedTopAppBar(title = { 
+           CenterAlignedTopAppBar(
+               modifier = Modifier.padding(top = 10.dp),
+               title = {
                Text(text = breed.breedName,
-                   fontSize = 16.sp,
+                   fontSize = 18.sp,
                    fontWeight = FontWeight.Bold,
+                     color = Color.Black
                )
            },
                navigationIcon = {
@@ -138,16 +141,5 @@ fun BreedDetailScreen(breedId: String, navController: NavController) {
             }
 
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun BreedDetailPreview(){
-    Surface(
-        modifier = Modifier.fillMaxSize()
-    ) {
-
     }
 }

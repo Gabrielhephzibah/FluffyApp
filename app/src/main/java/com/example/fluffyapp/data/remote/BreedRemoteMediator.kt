@@ -12,6 +12,12 @@ import com.example.fluffyapp.data.mapper.toCatBreedEntity
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * load data from network and store it in the database
+ * @param breedDb database
+ * @param breedApi api
+ * @return MediatorResult
+ */
 @OptIn(ExperimentalPagingApi::class)
 class BreedRemoteMediator(
     private val breedDb: BreedDatabase,
@@ -33,38 +39,34 @@ class BreedRemoteMediator(
                 }
             }
 
-            val catBreed = breedApi.getBreeds(
+            val breedResponse = breedApi.getBreeds(
                 limit = state.config.pageSize,
                 page = loadKey
             )
-            if (!catBreed.isSuccessful) {
-                return MediatorResult.Error(HttpException(catBreed))
-            }
 
-            val catBreedsResponse = catBreed.body() ?: emptyList()
+            val responseBody = breedResponse.body() ?: emptyList()
             val currentPageFromHeader =
-                catBreed.headers()["pagination-page"]?.toIntOrNull() ?: loadKey
+                breedResponse.headers()["pagination-page"]?.toIntOrNull() ?: loadKey
             breedDb.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     breedDb.breedDao().clearAllBreed()
                 }
-                val entity = catBreedsResponse.map {
+                val entity = responseBody.map {
                     it.toCatBreedEntity().copy(page = currentPageFromHeader)
                 }
                 breedDb.breedDao().insertBreeds(entity)
             }
 
             MediatorResult.Success(
-                endOfPaginationReached = catBreed.body().isNullOrEmpty()
+                endOfPaginationReached = breedResponse.body().isNullOrEmpty()
             )
 
         } catch (e: IOException) {
-            println("ZIBAH ERROR:: ")
             MediatorResult.Error(e)
         } catch (e: HttpException) {
-            println("ZIBAH ERROR:: ")
             MediatorResult.Error(e)
-
+        } catch (e: Exception) {
+            MediatorResult.Error(e)
         }
     }
 }

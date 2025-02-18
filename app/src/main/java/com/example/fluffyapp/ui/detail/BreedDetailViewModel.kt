@@ -24,7 +24,6 @@ class BreedDetailViewModel @Inject constructor(
     fun getBreedDetail(id:String){
         viewModelScope.launch {
             repository.getBreedDetail(id).combine(repository.getFavoriteBreedId()){ response, favouriteId ->
-                //println("ZIBAH FAVOURITE:: ${favouriteId}")
                 state = state.copy(
                     breedDetail = BreedDetail(
                         breedId = response.breedId,
@@ -39,7 +38,6 @@ class BreedDetailViewModel @Inject constructor(
                 )
               }.collect()
             }
-        println("ZIBAH DETAIL:: ${state.breedDetail}")
         }
 
     fun insertFavourite(favouriteBreed: FavouriteBreed){

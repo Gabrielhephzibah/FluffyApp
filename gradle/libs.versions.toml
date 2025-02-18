@@ -16,10 +16,15 @@ daggerHilt = "2.51.1"
 okhttpLogging = "4.9.1"
 hiltNavigation = "1.2.0"
 coil = "3.0.0-rc01"
-googleFonts = "1.7.7"
 room = "2.6.1"
 paging = "3.3.6"
 accompanist = "0.20.0"
+turbine = "1.1.0"
+truth = "1.1.4"
+mockk = "1.13.9"
+couroutineTest = "1.5.2"
+androidxTest = "2.1.0"
+pagingTest = "3.3.6"
 
 
 [libraries]
@@ -47,7 +52,6 @@ dagger-hilt-ksp-compiler = { group = "com.google.dagger", name = "hilt-compiler"
 dagger-hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
 coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
-#androidx-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "googleFonts" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room"}
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room"}
 androidx-room-compiler = {group = "androidx.room", name = "room-compiler", version.ref = "room"}
@@ -55,7 +59,13 @@ androidx-paging-runtime = {group = "androidx.paging", name = "paging-runtime", v
 androidx-paging-compose = {group = "androidx.paging", name = "paging-compose", version.ref = "paging"}
 androidx-paging-room = {group = "androidx.room", name = "room-paging", version.ref = "room"}
 google-accompanist-swipe-refresh = {group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "accompanist"}
-
+cashapp-turbine = {group = "app.cash.turbine", name = "turbine", version.ref = "turbine"}
+google-truth = {group = "com.google.truth", name = "truth", version.ref = "truth"}
+mockk = {group = "io.mockk", name = "mockk", version.ref = "mockk"}
+coroutine-test = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "couroutineTest"}
+androidx-test-arch-core = {group = "androidx.arch.core", name = "core-testing", version.ref = "androidxTest"}
+androidx-paging-testing = { group = "androidx.paging", name = "paging-testing-android", version.ref = "pagingTest" }
+androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "pagingTest" }
 
 
 
@@ -66,6 +76,5 @@ jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "k
 jetbrainKotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
 devtoolKsp = { id = "com.google.devtools.ksp", version.ref= "ksp" }
 daggerHilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
-room = {id = "androidx.room", version.ref = "room"}
 
 

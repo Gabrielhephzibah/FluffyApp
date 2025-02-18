@@ -13,6 +13,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -67,24 +70,8 @@ object AppModule {
     @Provides
     fun provideFavouriteBreedDao(database: BreedDatabase): FavouriteBreedDao = database.favouriteBreedDao()
 
-//    @Provides
-//    @Singleton
-//    fun provideBeerPager(catBreedDb: CatBreedDatabase, catBreedApi: CatBreedApi): Pager<Int, CatBreedEntity> {
-//        return Pager(
-//            config = PagingConfig(
-//                pageSize = 20,
-//                enablePlaceholders = true,
-//                prefetchDistance = 5,
-//                initialLoadSize = 20
-//            ),
-//            remoteMediator = CatBreedRemoteMediator(
-//               catBreedDb = catBreedDb,
-//                catBreedApi = catBreedApi
-//            ),
-//            pagingSourceFactory = {
-//                catBreedDb.CatBreedDao().getCatBreeds()
-//            }
-//        )
-//    }
+    @Singleton
+    @Provides
+    fun providesIODispatcher(): CoroutineDispatcher = Dispatchers.IO
 
 }
