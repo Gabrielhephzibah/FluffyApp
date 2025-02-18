@@ -1,17 +1,18 @@
 package com.example.fluffyapp.data.remote
 
 import com.example.fluffyapp.BuildConfig
-import com.example.fluffyapp.data.remote.dto.CatBreedDto
+import com.example.fluffyapp.data.remote.dto.BreedDto
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-interface CatBreedApi {
+interface BreedApi {
     @GET("breeds")
-    suspend fun getCat(
-        @Query("limit") limit: Int = 20,
-        @Query("page") page: Int = 0,
+    suspend fun getBreeds(
+        @Query("limit") limit: Int,
+        @Query("page") page: Int?,
         @Query("order") order: String = "ASC",
         @Header("x-api-key") apiKey: String = BuildConfig.API_KEY
-    ): List<CatBreedDto>
+    ): Response<List<BreedDto>>
 }

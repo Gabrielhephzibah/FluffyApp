@@ -84,6 +84,8 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.room)
+    implementation(libs.google.accompanist.swipe.refresh)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

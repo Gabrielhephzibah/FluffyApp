@@ -4,10 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "catBreed")
-data class CatBreedEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id : Int = 0,
+@Entity(tableName = "breed")
+data class BreedEntity(
+    @PrimaryKey
+    val breedId : String,
     @ColumnInfo
     val breedName : String,
     @ColumnInfo
@@ -21,5 +21,5 @@ data class CatBreedEntity(
     @ColumnInfo
     val description : String,
     @ColumnInfo
-    val isFavourite: Boolean = false
+    val page : Int? = null
 )

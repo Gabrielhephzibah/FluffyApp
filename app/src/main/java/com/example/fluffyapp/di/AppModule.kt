@@ -1,10 +1,17 @@
 package com.example.fluffyapp.di
 
+import android.content.Context
+import androidx.paging.ExperimentalPagingApi
+import androidx.room.Room
 import com.example.fluffyapp.BuildConfig
-import com.example.fluffyapp.data.remote.CatBreedApi
+import com.example.fluffyapp.data.local.database.BreedDatabase
+import com.example.fluffyapp.data.local.dao.BreedDao
+import com.example.fluffyapp.data.local.dao.FavouriteBreedDao
+import com.example.fluffyapp.data.remote.BreedApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,7 +38,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return  Retrofit.Builder()
+        return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
@@ -40,6 +47,44 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideCatApi(retrofit: Retrofit): CatBreedApi = retrofit.create(CatBreedApi::class.java)
+    fun provideBreedApi(retrofit: Retrofit): BreedApi = retrofit.create(BreedApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideRoomDatabase(@ApplicationContext context: Context) : BreedDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            BreedDatabase::class.java,
+            "cat-breed-database"
+        ).fallbackToDestructiveMigration().build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideBreedDao(database: BreedDatabase): BreedDao = database.breedDao()
+
+    @Singleton
+    @Provides
+    fun provideFavouriteBreedDao(database: BreedDatabase): FavouriteBreedDao = database.favouriteBreedDao()
+
+//    @Provides
+//    @Singleton
+//    fun provideBeerPager(catBreedDb: CatBreedDatabase, catBreedApi: CatBreedApi): Pager<Int, CatBreedEntity> {
+//        return Pager(
+//            config = PagingConfig(
+//                pageSize = 20,
+//                enablePlaceholders = true,
+//                prefetchDistance = 5,
+//                initialLoadSize = 20
+//            ),
+//            remoteMediator = CatBreedRemoteMediator(
+//               catBreedDb = catBreedDb,
+//                catBreedApi = catBreedApi
+//            ),
+//            pagingSourceFactory = {
+//                catBreedDb.CatBreedDao().getCatBreeds()
+//            }
+//        )
+//    }
 
 }

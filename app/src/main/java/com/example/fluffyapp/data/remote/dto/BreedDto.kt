@@ -2,7 +2,7 @@ package com.example.fluffyapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class CatBreedDto(
+data class BreedDto(
     val id: String?,
     val name: String?,
     val description: String?,
@@ -10,7 +10,7 @@ data class CatBreedDto(
     val origin: String?,
     @SerializedName("life_span")
     val lifeSpan: String?,
-    val image: Image
+    val image: Image?
 )
 data class Image(
     val id: String?,

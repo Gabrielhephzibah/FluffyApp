@@ -1,14 +1,13 @@
 package com.example.fluffyapp.ui.navigation
 
 import kotlinx.serialization.Serializable
-
-sealed class Screens {
+@Serializable
+sealed class Screens(val route: String) {
     @Serializable
-    data object CatBreedListScreen : Screens()
-
-    @Serializable
-    data object CatFavouriteScreen : Screens()
+    data object BreedListScreen : Screens("cat_breed_screen")
 
     @Serializable
-    data object CatDetailScreen : Screens()
+    data object FavouriteBreedScreen : Screens("cat_favourite_screen")
 }
+@Serializable
+data class CatDetailScreen(val id: String)

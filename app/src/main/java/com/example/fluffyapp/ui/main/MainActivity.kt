@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.fluffyapp.ui.navigation.AppNavigation
 import com.example.fluffyapp.ui.navigation.BottomNavigationItem
@@ -35,32 +36,49 @@ class MainActivity : ComponentActivity() {
                     mutableStateOf(0)
                 }
                 val navController = rememberNavController()
+
+                val screens= listOf(
+                    BottomNavigationItem.BreedList,
+                    BottomNavigationItem.BreedFavourite
+                )
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.scrim
                 ) {
-                   Scaffold(bottomBar = {
-                       NavigationBar {
-                        BottomNavigationItem.item.forEachIndexed{ index, item ->
-                            NavigationBarItem(
-                                selected = selectedItem == index,
-                                onClick = {
-                                          selectedItem = index
-                                         navController.navigate(item.route)
-                                },
-                                label = {
-                                        Text(text = item.title,
-                                            fontSize = 12.sp
-                                            )
-                                },
-                                alwaysShowLabel = false,
-                                icon = {
-                                    Icon(imageVector = if (selectedItem == index) item.iconSelected else item.iconNotSelected, contentDescription = item.title)
-                                })
 
-                        }
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination?.route
+                    val bottomBarDestination = screens.any { it.route == currentDestination }
+
+                   Scaffold(
+                       bottomBar = {
+                       if (bottomBarDestination) {
+                           NavigationBar {
+                               screens.forEachIndexed { index, item ->
+                                   NavigationBarItem(
+                                       selected = selectedItem == index,
+                                       onClick = {
+                                           selectedItem = index
+                                           navController.navigate(item.route)
+                                       },
+                                       label = {
+                                           Text(
+                                               text = item.title,
+                                               fontSize = 12.sp
+                                           )
+                                       },
+                                       alwaysShowLabel = false,
+                                       icon = {
+                                           Icon(
+                                               imageVector = if (selectedItem == index) item.iconSelected else item.iconNotSelected,
+                                               contentDescription = item.title
+                                           )
+                                       })
+
+                               }
+                           }
                        }
-
                    }) {paddingValues ->
                        AppNavigation(navController = navController, paddingValues )
                    }
