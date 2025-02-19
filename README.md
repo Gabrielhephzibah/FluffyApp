@@ -21,7 +21,7 @@ Serves as an interface between the Data Layer and the UI Layer. It consists of:
 - **Model:**  
   - Contains model or data classes used in the UI layer.
 - **Repository:**  
-- Contains interfaces that are implemented by the Repository in the Data Layer.
+   - Contains interfaces that are implemented by the Repository in the Data Layer.
 
 > **Note:** This layer does not include a dedicated use-case layer.
 
