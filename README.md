@@ -1,4 +1,3 @@
-```markdown
 # Fluffy App
 
 Fluffy App is an Android application that fetches and displays a list of cat breeds. The app is built using a simple MVVM architecture with an additional domain layer. **Note:** It does not implement a full clean architecture with use-cases.
@@ -72,4 +71,3 @@ Contains test classes that validate the logic in the Data Layer.
 
 - **Truth:**  
   Uses the Truth library for test assertions.
-```
