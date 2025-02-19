@@ -40,7 +40,7 @@ Contains test classes that validate the logic in the Data Layer.
   Uses Room library to cache network responses locally, ensuring the app is usable offline and that data persists across screens.
 
 - **Pagination:**  
-  Uses the Paging3 library to retrieve data in pages for efficient API requests.
+  Uses the Paging3 library to retrieve data in pages to optimize API calls and improve app performance.
 
 - **Remote Mediator:**  
   Uses a `RemoteMediator` from the Paging library to load data from the network into the database. This ensures a single source of truth for data and handles data refreshes, appends, and prepends.
