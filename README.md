@@ -6,13 +6,13 @@ Fluffy App is an Android application that fetches and displays a list of cat bre
 
 ### Data Layer
 - **Local:**  
-   - Contains the Data Access Objects (DAO), Entity classes, and Room Database implementation for local caching.
+   - Contains the Data Access Objects (DAO), Entity classes, and Room Database.
 - **Mapper:**  
   - Contains functions that map data between different layers (e.g., API DTOs to database entities, or entities to domain models).
 - **Remote:**  
   - Contains API endpoints, API DTOs, and the `RemoteMediator` which loads data from the network into the database.
 - **Repository:**  
-  - Implements the repository pattern and contains the data logic.
+  - Implements the repository interface and contains the data logic.
 - **DI Layer:**  
   - Handles dependency injection (using Hilt) and contains dependency modules.
 
@@ -21,7 +21,7 @@ Serves as an interface between the Data Layer and the UI Layer. It consists of:
 - **Model:**  
   - Contains model or data classes used in the UI layer.
 - **Repository:**  
-   - Contains interfaces that are implemented by the Repository in the Data Layer.
+   - Contains methods that are implemented by the Repository in the Data Layer.
 
 > **Note:** This layer does not include a dedicated use-case layer.
 
