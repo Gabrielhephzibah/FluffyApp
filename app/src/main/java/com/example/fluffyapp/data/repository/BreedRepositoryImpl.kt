@@ -10,7 +10,7 @@ import com.example.fluffyapp.data.local.dao.BreedDao
 import com.example.fluffyapp.data.local.dao.FavouriteBreedDao
 import com.example.fluffyapp.data.local.database.BreedDatabase
 import com.example.fluffyapp.data.mapper.toBreedDetail
-import com.example.fluffyapp.data.mapper.toCatBreed
+import com.example.fluffyapp.data.mapper.toBreed
 import com.example.fluffyapp.data.mapper.toFavouriteBreed
 import com.example.fluffyapp.data.mapper.toFavouriteEntity
 import com.example.fluffyapp.data.remote.BreedApi
@@ -38,7 +38,7 @@ class BreedRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
-                prefetchDistance = 5,
+                prefetchDistance = 10,
                 initialLoadSize = 20,
             ),
             remoteMediator = if (searchQuery.isNullOrEmpty()) {
@@ -50,7 +50,7 @@ class BreedRepositoryImpl @Inject constructor(
             pagingSourceFactory = {
                 breedDao.getBreeds(searchQuery)
             }
-        ).flow.map { pagingData -> pagingData.map { it.toCatBreed() } }.flowOn(ioDispatcher)
+        ).flow.map { pagingData -> pagingData.map { it.toBreed() } }.flowOn(ioDispatcher)
 
     }
 

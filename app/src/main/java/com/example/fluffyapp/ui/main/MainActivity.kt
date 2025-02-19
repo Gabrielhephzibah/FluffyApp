@@ -25,7 +25,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.fluffyapp.ui.navigation.AppNavigation
 import com.example.fluffyapp.ui.navigation.BottomNavigationItem
 import com.example.fluffyapp.ui.theme.FluffyAppTheme
-import com.example.fluffyapp.ui.theme.Grey40
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -78,8 +77,8 @@ class MainActivity : ComponentActivity() {
                                            )
                                        },
                                        colors = NavigationBarItemDefaults.colors(
-                                           selectedIconColor = Grey40,
-                                           selectedTextColor = Grey40
+                                           selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                           selectedTextColor = MaterialTheme.colorScheme.onPrimary
                                        )
                                    )
                                }

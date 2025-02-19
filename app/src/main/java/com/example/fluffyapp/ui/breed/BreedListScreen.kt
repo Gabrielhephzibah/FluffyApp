@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.fluffyapp.ui.common.Error
-import com.example.fluffyapp.ui.common.Loading
+import com.example.fluffyapp.ui.common.ErrorScreen
+import com.example.fluffyapp.ui.common.LoadingScreen
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
@@ -47,7 +47,7 @@ fun CatBreedListScreen(paddingValues: PaddingValues, onItemClick: (String) -> Un
             Toast.makeText(
                 context,
                 "No internet connection",
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
             ).show()
         }
     }
@@ -71,8 +71,8 @@ fun CatBreedListScreen(paddingValues: PaddingValues, onItemClick: (String) -> Un
                     data.loadState.refresh == LoadState.Loading -> {
                         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                     }
-                    data.loadState.refresh is LoadState.Error && data.itemSnapshotList.isEmpty() -> {
-                        Error(onRetry = { data.retry() })
+                    (data.itemSnapshotList.isEmpty() && data.loadState.refresh is LoadState.Error)  -> {
+                        ErrorScreen(onRetry = { data.retry() })
                     }
                     else -> {
                         LazyVerticalGrid(
@@ -92,7 +92,7 @@ fun CatBreedListScreen(paddingValues: PaddingValues, onItemClick: (String) -> Un
                             }
                             if (data.loadState.append is LoadState.Loading) {
                                 item {
-                                    Loading()
+                                    LoadingScreen()
                                 }
                             }
                         }

@@ -15,6 +15,7 @@ import com.example.fluffyapp.data.remote.BreedApi
 import com.example.fluffyapp.data.repository.BreedRepositoryImpl
 import com.example.fluffyapp.domain.model.FavouriteBreed
 import com.example.fluffyapp.domain.repository.BreedRepository
+import com.example.fluffyapp.model.TestData
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -55,28 +56,25 @@ class BreedRepositoryImplTest {
 
       coEvery { mockFavouriteBreedDao.insertFavouriteBreed(any()) } returns Unit
 
-      val favouriteBreed = FavouriteBreed(
-         breedId = "ert",
-         breedName = "HIPPOP",
-         url = "https",
-         lifespan = "3-5"
-      )
-      val expectedEntity = favouriteBreed.toFavouriteEntity()
+      val favouriteBreed = TestData.favouriteBreed
+
+      val expected = favouriteBreed.toFavouriteEntity()
 
       breedRepository.insertFavouriteBreed(favouriteBreed)
 
-      coVerify(exactly = 1) { mockFavouriteBreedDao.insertFavouriteBreed(expectedEntity)  }
+      coVerify(exactly = 1) { mockFavouriteBreedDao.insertFavouriteBreed(expected)  }
 
    }
 
    @Test
    fun shouldReturnFavouriteBreedIdFromDb() = runTest {
-      val expectedId = listOf("arg", "ert", "red")
-      every { mockFavouriteBreedDao.getFavouritesId() } returns flowOf(expectedId)
+      val expected = TestData.favouriteId
 
-      val result = breedRepository.getFavoriteBreedId().first()
+      every { mockFavouriteBreedDao.getFavouritesId() } returns flowOf(expected)
 
-      assertThat(result).isEqualTo(expectedId)
+      val actual = breedRepository.getFavoriteBreedId().first()
+
+      assertThat(actual).isEqualTo(expected)
 
       verify(exactly = 1) { mockFavouriteBreedDao.getFavouritesId() }
    }
@@ -84,22 +82,18 @@ class BreedRepositoryImplTest {
    @Test
    fun shouldRemoveBreedFromFavouriteById() = runTest {
 
-      coEvery { mockFavouriteBreedDao.removeBreedFromFavourite("arg") } returns Unit
+      coEvery { mockFavouriteBreedDao.removeBreedFromFavourite(TestData.id) } returns Unit
 
-      breedRepository.removeBreedFromFavourite("arg")
+      breedRepository.removeBreedFromFavourite(TestData.id)
 
-      coVerify(exactly = 1) { mockFavouriteBreedDao.removeBreedFromFavourite("arg") }
+      coVerify(exactly = 1) { mockFavouriteBreedDao.removeBreedFromFavourite(TestData.id) }
 
    }
 
    @Test
    fun shouldGetFavouriteBreeds() = runTest {
-      val expected = listOf(FavouriteBreedEntity(
-         breedId = "ert",
-         breedName = "HIPPOP",
-         url = "https",
-         lifespan = "3-5"
-      ))
+      val expected = TestData.favouriteBreedEntity
+
       every { mockFavouriteBreedDao.getFavouriteBreeds() } returns flowOf(expected)
 
       val actual = breedRepository.getFavoriteBreeds().first()
@@ -112,39 +106,25 @@ class BreedRepositoryImplTest {
 
    @Test
    fun shouldGetBreedDetailById() = runTest{
-      val expected = BreedEntity(
-         breedId = "ard",
-         breedName = "tolu",
-         url = "utl",
-         origin = "origin",
-         temperament = "temperament",
-         description = "description",
-         lifespan = "lifespan",
-      )
+      val expected = TestData.breedEntity
 
-      every { mockBreedDao.findBreedById("ard") } returns flowOf(expected)
+      every { mockBreedDao.findBreedById(TestData.id) } returns flowOf(expected)
 
-      val actual = breedRepository.getBreedDetail("ard").first()
+      val actual = breedRepository.getBreedDetail(TestData.id).first()
 
       assertThat(actual).isEqualTo(expected.toBreedDetail())
 
-      verify { mockBreedDao.findBreedById("ard") }
+      verify { mockBreedDao.findBreedById(TestData.id) }
 
    }
 
    @Test
    fun shouldGetAllBreedsFromPagingSource() = runTest {
-      val entity = listOf(BreedEntity(
-         breedId = "ard",
-         breedName = "tolu",
-         url = "utl",
-         origin = "origin",
-         temperament = "temperament",
-         description = "description",
-         lifespan = "lifespan",
-      ))
+      val entity = listOf(TestData.breedEntity)
+
       val pagingConfig = PagingConfig(20)
       val pagingSource = FakePagingSource(entity)
+
       every { mockBreedDao.getBreeds(any()) } returns pagingSource
 
       breedRepository.getBreeds(null).first()

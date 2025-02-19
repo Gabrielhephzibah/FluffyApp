@@ -4,7 +4,7 @@ import com.example.fluffyapp.data.local.entity.BreedEntity
 import com.example.fluffyapp.data.remote.dto.BreedDto
 import com.example.fluffyapp.domain.model.Breed
 
-fun BreedDto.toCatBreedEntity(): BreedEntity{
+fun BreedDto.toBreedEntity(): BreedEntity{
     return BreedEntity(
         breedId = this.id ?: "",
         breedName = this.name ?: "",
@@ -16,14 +16,11 @@ fun BreedDto.toCatBreedEntity(): BreedEntity{
     )
 }
 
-fun BreedEntity.toCatBreed(): Breed{
+fun BreedEntity.toBreed(): Breed{
     return Breed(
         breedId=this.breedId,
         breedName = this.breedName,
         url = this.url,
-        lifespan = this.lifespan,
-        origin = this.origin,
-        temperament = this.temperament,
-        description = this.description,
+        lifespan = this.lifespan
     )
 }

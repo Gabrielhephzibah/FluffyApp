@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Error(onRetry: () -> Unit) {
+fun ErrorScreen(onRetry: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -23,10 +24,10 @@ fun Error(onRetry: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Connection Error", color = Color.DarkGray)
+        Text(text = "Connection Error", color = MaterialTheme.colorScheme.onSecondary)
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = { onRetry() }) {
-            Text(text = "Retry")
+            Text(text = "Retry", color = Color.White)
         }
     }
 }

@@ -53,9 +53,6 @@ class BreedViewModel @Inject constructor(
                                     breedName = it.breedName,
                                     url = it.url,
                                     lifespan = it.lifespan,
-                                    origin = it.origin,
-                                    temperament = it.temperament,
-                                    description = it.description,
                                     isFavourite = favourite.contains(it.breedId)
                                 )
                             }

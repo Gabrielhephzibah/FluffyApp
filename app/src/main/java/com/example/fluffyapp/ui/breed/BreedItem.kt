@@ -5,12 +5,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -78,7 +80,7 @@ fun BreedItem(item: Breed, viewModel: BreedViewModel, onItemClick: (String) -> U
                 modifier = Modifier
                     .align(Alignment.TopEnd)
             ) {
-                Icon(
+                Icon(modifier = Modifier.size(27.dp),
                     imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                     tint = Color.Magenta,
                     contentDescription = "favourites"
@@ -87,7 +89,7 @@ fun BreedItem(item: Breed, viewModel: BreedViewModel, onItemClick: (String) -> U
         }
         Text(
             text = item.breedName,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.onSecondary,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
         )

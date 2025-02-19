@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,7 +50,7 @@ fun FavouriteBreedScreen(paddingValues: PaddingValues, onItemClick: (String) -> 
                 .padding(top = 20.dp),
             textAlign = TextAlign.Center,
             text = "Average LifeSpan: ${data.averageLifeSpan}",
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.onSecondary,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
         )
@@ -66,7 +67,7 @@ fun FavouriteBreedScreen(paddingValues: PaddingValues, onItemClick: (String) -> 
                     text = "You do not have any favourite breed",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = Color.DarkGray
+                    color = MaterialTheme.colorScheme.onSecondary
                 )
             }
         } else {
@@ -125,7 +126,7 @@ fun CatFavouriteItem(item: FavouriteBreed, onItemClick: (String) -> Unit) {
         }
         Text(
             text = item.breedName,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.onSecondary,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
         )

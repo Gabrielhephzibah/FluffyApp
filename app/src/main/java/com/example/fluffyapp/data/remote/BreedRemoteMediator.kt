@@ -8,7 +8,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.fluffyapp.data.local.database.BreedDatabase
 import com.example.fluffyapp.data.local.entity.BreedEntity
-import com.example.fluffyapp.data.mapper.toCatBreedEntity
+import com.example.fluffyapp.data.mapper.toBreedEntity
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -48,13 +48,10 @@ class BreedRemoteMediator(
             val currentPageFromHeader =
                 breedResponse.headers()["pagination-page"]?.toIntOrNull() ?: loadKey
             breedDb.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    breedDb.breedDao().clearAllBreed()
-                }
                 val entity = responseBody.map {
-                    it.toCatBreedEntity().copy(page = currentPageFromHeader)
+                    it.toBreedEntity().copy(page = currentPageFromHeader)
                 }
-                breedDb.breedDao().insertBreeds(entity)
+                breedDb.breedDao().upsertBreeds(entity)
             }
 
             MediatorResult.Success(
