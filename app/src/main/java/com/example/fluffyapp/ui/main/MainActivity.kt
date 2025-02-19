@@ -12,13 +12,11 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -38,7 +36,7 @@ class MainActivity : ComponentActivity() {
                 }
                 val navController = rememberNavController()
 
-                val screens= listOf(
+                val bottomNavigationItems = listOf(
                     BottomNavigationItem.BreedList,
                     BottomNavigationItem.BreedFavourite
                 )
@@ -50,61 +48,46 @@ class MainActivity : ComponentActivity() {
 
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentDestination = navBackStackEntry?.destination?.route
-                    val bottomBarDestination = screens.any { it.route == currentDestination }
+                    val bottomBarDestination =
+                        bottomNavigationItems.any { it.route == currentDestination }
 
-                   Scaffold(
-                       bottomBar = {
-                       if (bottomBarDestination) {
-                           NavigationBar {
-                               screens.forEachIndexed { index, item ->
-                                   NavigationBarItem(
-                                       selected = selectedItem == index,
-                                       onClick = {
-                                           selectedItem = index
-                                           navController.navigate(item.route)
-                                       },
-                                       label = {
-                                           Text(
-                                               text = item.title,
-                                               fontSize = 12.sp
-                                           )
-                                       },
-                                       alwaysShowLabel = false,
-                                       icon = {
-                                           Icon(
-                                               imageVector = if (selectedItem == index) item.iconSelected else item.iconNotSelected,
-                                               contentDescription = item.title
-                                           )
-                                       },
-                                       colors = NavigationBarItemDefaults.colors(
-                                           selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                                           selectedTextColor = MaterialTheme.colorScheme.onPrimary
-                                       )
-                                   )
-                               }
-                           }
-                       }
-                   }) {paddingValues ->
-                       AppNavigation(navController = navController, paddingValues )
-                   }
+                    Scaffold(
+                        bottomBar = {
+                            if (bottomBarDestination) {
+                                NavigationBar {
+                                    bottomNavigationItems.forEachIndexed { index, item ->
+                                        NavigationBarItem(
+                                            selected = selectedItem == index,
+                                            onClick = {
+                                                selectedItem = index
+                                                navController.navigate(item.route)
+                                            },
+                                            label = {
+                                                Text(
+                                                    text = item.title,
+                                                    fontSize = 12.sp
+                                                )
+                                            },
+                                            alwaysShowLabel = false,
+                                            icon = {
+                                                Icon(
+                                                    imageVector = if (selectedItem == index) item.iconSelected else item.iconNotSelected,
+                                                    contentDescription = item.title
+                                                )
+                                            },
+                                            colors = NavigationBarItemDefaults.colors(
+                                                selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                                selectedTextColor = MaterialTheme.colorScheme.onPrimary
+                                            )
+                                        )
+                                    }
+                                }
+                            }
+                        }) { paddingValues ->
+                        AppNavigation(navController = navController, paddingValues)
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FluffyAppTheme {
-        Greeting("Android")
     }
 }
