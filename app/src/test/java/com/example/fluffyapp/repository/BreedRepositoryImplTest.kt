@@ -31,106 +31,112 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class BreedRepositoryImplTest {
-   private lateinit var breedRepository: BreedRepository
-   private val mockBreedApi = mockk<BreedApi>()
-   private val mockBreedDb = mockk<BreedDatabase>()
-   private val mockBreedDao = mockk<BreedDao>()
-   private val mockFavouriteBreedDao = mockk<FavouriteBreedDao>()
-   private val dispatcher = UnconfinedTestDispatcher()
+    private lateinit var breedRepository: BreedRepository
+    private val mockBreedApi = mockk<BreedApi>()
+    private val mockBreedDb = mockk<BreedDatabase>()
+    private val mockBreedDao = mockk<BreedDao>()
+    private val mockFavouriteBreedDao = mockk<FavouriteBreedDao>()
+    private val dispatcher = UnconfinedTestDispatcher()
 
-   @Before
-   fun setUp(){
-      breedRepository = BreedRepositoryImpl(mockBreedApi, mockBreedDb, mockBreedDao, mockFavouriteBreedDao, dispatcher)
-   }
+    @Before
+    fun setUp() {
+        breedRepository = BreedRepositoryImpl(
+            mockBreedApi,
+            mockBreedDb,
+            mockBreedDao,
+            mockFavouriteBreedDao,
+            dispatcher
+        )
+    }
 
-   @After
-   fun tearDown(){
-      unmockkAll()
-   }
+    @After
+    fun tearDown() {
+        unmockkAll()
+    }
 
-   @Test
-   fun shouldInsertFavouriteBreedSuccessfully() = runTest{
+    @Test
+    fun shouldInsertFavouriteBreedSuccessfully() = runTest {
 
-      coEvery { mockFavouriteBreedDao.insertFavouriteBreed(any()) } returns Unit
+        coEvery { mockFavouriteBreedDao.insertFavouriteBreed(any()) } returns Unit
 
-      val favouriteBreed = TestData.favouriteBreed
+        val favouriteBreed = TestData.favouriteBreed
 
-      val expected = favouriteBreed.toFavouriteEntity()
+        val expected = favouriteBreed.toFavouriteEntity()
 
-      breedRepository.insertFavouriteBreed(favouriteBreed)
+        breedRepository.insertFavouriteBreed(favouriteBreed)
 
-      coVerify(exactly = 1) { mockFavouriteBreedDao.insertFavouriteBreed(expected)  }
+        coVerify(exactly = 1) { mockFavouriteBreedDao.insertFavouriteBreed(expected) }
 
-   }
+    }
 
-   @Test
-   fun shouldReturnFavouriteBreedIdFromDb() = runTest {
-      val expected = TestData.favouriteId
+    @Test
+    fun shouldReturnFavouriteBreedIdFromDb() = runTest {
+        val expected = TestData.favouriteId
 
-      every { mockFavouriteBreedDao.getFavouritesId() } returns flowOf(expected)
+        every { mockFavouriteBreedDao.getFavouritesId() } returns flowOf(expected)
 
-      val actual = breedRepository.getFavoriteBreedId().first()
+        val actual = breedRepository.getFavoriteBreedId().first()
 
-      assertThat(actual).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
 
-      verify(exactly = 1) { mockFavouriteBreedDao.getFavouritesId() }
-   }
+        verify(exactly = 1) { mockFavouriteBreedDao.getFavouritesId() }
+    }
 
-   @Test
-   fun shouldRemoveBreedFromFavouriteById() = runTest {
+    @Test
+    fun shouldRemoveBreedFromFavouriteById() = runTest {
 
-      coEvery { mockFavouriteBreedDao.removeBreedFromFavourite(TestData.id) } returns Unit
+        coEvery { mockFavouriteBreedDao.removeBreedFromFavourite(TestData.id) } returns Unit
 
-      breedRepository.removeBreedFromFavourite(TestData.id)
+        breedRepository.removeBreedFromFavourite(TestData.id)
 
-      coVerify(exactly = 1) { mockFavouriteBreedDao.removeBreedFromFavourite(TestData.id) }
+        coVerify(exactly = 1) { mockFavouriteBreedDao.removeBreedFromFavourite(TestData.id) }
 
-   }
+    }
 
-   @Test
-   fun shouldGetFavouriteBreeds() = runTest {
-      val expected = TestData.favouriteBreedEntity
+    @Test
+    fun shouldGetFavouriteBreeds() = runTest {
+        val expected = TestData.favouriteBreedEntity
 
-      every { mockFavouriteBreedDao.getFavouriteBreeds() } returns flowOf(expected)
+        every { mockFavouriteBreedDao.getFavouriteBreeds() } returns flowOf(expected)
 
-      val actual = breedRepository.getFavoriteBreeds().first()
+        val actual = breedRepository.getFavoriteBreeds().first()
 
-      assertThat(actual).isEqualTo(expected.map { it.toFavouriteBreed() })
+        assertThat(actual).isEqualTo(expected.map { it.toFavouriteBreed() })
 
-      verify(exactly = 1) { mockFavouriteBreedDao.getFavouriteBreeds() }
+        verify(exactly = 1) { mockFavouriteBreedDao.getFavouriteBreeds() }
 
-   }
+    }
 
-   @Test
-   fun shouldGetBreedDetailById() = runTest{
-      val expected = TestData.breedEntity
+    @Test
+    fun shouldGetBreedDetailById() = runTest {
+        val expected = TestData.breedEntity
 
-      every { mockBreedDao.findBreedById(TestData.id) } returns flowOf(expected)
+        every { mockBreedDao.findBreedById(TestData.id) } returns flowOf(expected)
 
-      val actual = breedRepository.getBreedDetail(TestData.id).first()
+        val actual = breedRepository.getBreedDetail(TestData.id).first()
 
-      assertThat(actual).isEqualTo(expected.toBreedDetail())
+        assertThat(actual).isEqualTo(expected.toBreedDetail())
 
-      verify { mockBreedDao.findBreedById(TestData.id) }
+        verify { mockBreedDao.findBreedById(TestData.id) }
 
-   }
+    }
 
-   @Test
-   fun shouldGetAllBreedsFromPagingSource() = runTest {
-      val entity = listOf(TestData.breedEntity)
+    @Test
+    fun shouldGetAllBreedsFromPagingSource() = runTest {
+        val entity = listOf(TestData.breedEntity)
 
-      val pagingConfig = PagingConfig(20)
-      val pagingSource = FakePagingSource(entity)
+        val pagingConfig = PagingConfig(20)
+        val pagingSource = FakePagingSource(entity)
 
-      every { mockBreedDao.getBreeds(any()) } returns pagingSource
+        every { mockBreedDao.getBreeds(any()) } returns pagingSource
 
-      breedRepository.getBreeds(null).first()
+        breedRepository.getBreeds(null).first()
 
-      val pager = TestPager(pagingConfig, pagingSource)
+        val pager = TestPager(pagingConfig, pagingSource)
 
-      val result = pager.refresh() as PagingSource.LoadResult.Page
+        val result = pager.refresh() as PagingSource.LoadResult.Page
 
-      assertThat(result.data).containsExactlyElementsIn(entity).inOrder()
-   }
+        assertThat(result.data).containsExactlyElementsIn(entity).inOrder()
+    }
 
 }
