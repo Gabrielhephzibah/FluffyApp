@@ -5,10 +5,11 @@ Fluffy App is an Android application that fetches and displays a list of cat bre
 ## App Structure
 
 ### Data Layer
+Consists of the following packages:
 - **Local:**  
    - Contains the Data Access Objects (DAO), Entity classes, and Room Database.
 - **Mapper:**  
-  - Contains functions that map data between different layers (e.g., API DTOs to database entities, or entities to domain models).
+  - Contains functions that map data between different data classes.
 - **Remote:**  
   - Contains API endpoints, API DTOs, and the `RemoteMediator` which loads data from the network into the database.
 - **Repository:**  
@@ -58,7 +59,7 @@ Contains test classes that validate the logic in the Data Layer.
   Uses the Coil library for efficient loading of network images into views.
 
 - **Swipe Refresh:**  
-  Implements the SwipeRefresh library to allow users to easily refresh data.
+  Implements the SwipeRefresh library to allow users to refresh data by swiping down on the screen.
 
 - **Retrofit:**  
   Uses Retrofit as the HTTP client to handle network requests.
