@@ -1,12 +1,12 @@
 # Fluffy App
 
-Fluffy App is an Android application that fetches and displays a list of cat breeds. The app is built using a simple MVVM architecture with an additional domain layer. **Note:** It does not implement a full clean architecture with use-cases.
+Fluffy App is an Android application that fetches and displays a list of cat breeds. The app is built using a simple MVVM architecture with a domain layer.
 
 ## App Structure
 
 ### Data Layer
 - **Local:**  
-  Contains the Data Access Objects (DAO), Entity classes, and Room Database implementation for local caching.
+   - Contains the Data Access Objects (DAO), Entity classes, and Room Database implementation for local caching.
 - **Mapper:**  
   Contains functions that map data between different layers (e.g., API DTOs to database entities, or entities to domain models).
 - **Remote:**  
