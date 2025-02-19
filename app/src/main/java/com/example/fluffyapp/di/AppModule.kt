@@ -1,12 +1,11 @@
 package com.example.fluffyapp.di
 
 import android.content.Context
-import androidx.paging.ExperimentalPagingApi
 import androidx.room.Room
 import com.example.fluffyapp.BuildConfig
-import com.example.fluffyapp.data.local.database.BreedDatabase
 import com.example.fluffyapp.data.local.dao.BreedDao
 import com.example.fluffyapp.data.local.dao.FavouriteBreedDao
+import com.example.fluffyapp.data.local.database.BreedDatabase
 import com.example.fluffyapp.data.remote.BreedApi
 import dagger.Module
 import dagger.Provides
@@ -15,7 +14,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -74,7 +74,6 @@ dependencies {
     implementation(libs.retrofit.okhttp.logging)
     implementation(libs.dagger.hilt.navigation)
     implementation(libs.dagger.hilt.android)
-
     ksp(libs.dagger.hilt.ksp.compiler)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.jetbrain.serialization)
