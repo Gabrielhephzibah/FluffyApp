@@ -6,14 +6,11 @@ import androidx.paging.testing.TestPager
 import com.example.fluffyapp.data.local.dao.BreedDao
 import com.example.fluffyapp.data.local.dao.FavouriteBreedDao
 import com.example.fluffyapp.data.local.database.BreedDatabase
-import com.example.fluffyapp.data.local.entity.BreedEntity
-import com.example.fluffyapp.data.local.entity.FavouriteBreedEntity
 import com.example.fluffyapp.data.mapper.toBreedDetail
 import com.example.fluffyapp.data.mapper.toFavouriteBreed
 import com.example.fluffyapp.data.mapper.toFavouriteEntity
 import com.example.fluffyapp.data.remote.BreedApi
 import com.example.fluffyapp.data.repository.BreedRepositoryImpl
-import com.example.fluffyapp.domain.model.FavouriteBreed
 import com.example.fluffyapp.domain.repository.BreedRepository
 import com.example.fluffyapp.model.TestData
 import com.google.common.truth.Truth.assertThat
