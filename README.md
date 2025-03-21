@@ -1,6 +1,6 @@
 # Fluffy App
 
-Fluffy App is an Android application that fetches and displays a list of cat breeds. The app is built using a simple MVVM architecture with a domain layer.
+Fluffy App is an Android application that fetches and displays a list of cat breeds. The app is built using a simple MVVM architecture.
 
 ## App Structure
 
@@ -35,7 +35,7 @@ Handles everything related to the user interface:
 Contains test classes that validate the logic in the Data Layer.
 - Uses JUnit, MockK, and Truth for unit testing.
 
-## Development Strategies and Libraries
+## Libraries
 
 - **Caching:**  
   Uses Room library to cache network responses locally, ensuring the app is usable offline and that data persists across screens.
