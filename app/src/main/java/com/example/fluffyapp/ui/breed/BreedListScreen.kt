@@ -109,7 +109,7 @@ fun TopBarSearch(viewModel: BreedViewModel) {
         mutableStateOf("")
     }
     LaunchedEffect(searchQuery) {
-        viewModel.searchRepositories(searchQuery)
+        viewModel.searchBreeds(searchQuery)
     }
     Row(modifier = Modifier
         .fillMaxWidth()

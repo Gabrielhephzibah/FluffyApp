@@ -29,19 +29,19 @@ class BreedViewModel @Inject constructor(
     private val _breeds = MutableStateFlow<PagingData<Breed>>(PagingData.empty())
     val breeds: MutableStateFlow<PagingData<Breed>> = _breeds
 
-    private val queryFlow = MutableStateFlow("")
+    private val searchQuery = MutableStateFlow("")
 
     init {
-        pagingWithFavourite()
+        getBreeds()
     }
 
-    fun searchRepositories(query: String) {
-        queryFlow.value = query
+    fun searchBreeds(query: String) {
+        searchQuery.value = query
     }
 
-    private fun pagingWithFavourite() {
+    private fun getBreeds() {
         viewModelScope.launch {
-            queryFlow
+            searchQuery
                 .debounce(300)
                 .distinctUntilChanged()
                 .flatMapLatest { query ->

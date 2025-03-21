@@ -46,7 +46,9 @@ fun BreedDetailScreen(breedId: String, navController: NavController) {
 
     val breed  = viewModel.state.breedDetail
     var isFavorite by rememberSaveable { mutableStateOf(breed.isFavorite) }
-
+    LaunchedEffect(breed.isFavorite) {
+        isFavorite = breed.isFavorite
+    }
 
     Scaffold(
         topBar = {
@@ -70,11 +72,6 @@ fun BreedDetailScreen(breedId: String, navController: NavController) {
            )
         }
     ) { innerPadding ->
-
-        LaunchedEffect(breed.isFavorite) {
-            isFavorite = breed.isFavorite
-        }
-
         Column(modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize()
