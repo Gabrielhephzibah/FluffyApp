@@ -1,6 +1,6 @@
 # Fluffy App
 
-Fluffy App is an Android application that fetches and displays a list of cat breeds. The app is built using a simple MVVM architecture with a domain layer.
+Fluffy App is an Android application that fetches and displays a list of cat breeds. The app is built using a simple MVVM architecture.
 
 ## App Structure
 
